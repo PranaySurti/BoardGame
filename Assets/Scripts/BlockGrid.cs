@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+// using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -52,23 +52,24 @@ public class BlockGrid : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         // }
     }
 
-    // ON POINTER EXIT 
+   // ON POINTER EXIT 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (isDragging){
             isDragging = false;
-            if ( !IsPlaced ) {
+            if (!IsPlaced)
+            {
                 BlockCell[Placementindex].GetComponent<GridCell>().childRef = null;
-            }else{
-                int MaxLength =  BlockCell[Placementindex].GetComponent<GridCell>().childRef.GetComponent<PickUpBeads>().Number; 
-                for(int i = Placementindex + 1; i <= MaxLength ; i ++ ){
+            }
+            else
+            {
+                int MaxLength = BlockCell[Placementindex].GetComponent<GridCell>().childRef.GetComponent<PickUpBeads>().Number;
+                for (int i = Placementindex + 1; i <= MaxLength; i++)
+                {
                     BlockCell[i].GetComponent<GridCell>().childRef = BlockCell[Placementindex].GetComponent<GridCell>().childRef;
                 }
             }
-            
-        }
-
-        
+        }    
     }
 
     // ON POINTER UP -----> NOT TO DO FOR NOW 
