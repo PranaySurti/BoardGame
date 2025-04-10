@@ -101,10 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 9
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 9
 --- !u!65 &1676277142347692567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -227,10 +227,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 2
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 2
 --- !u!65 &8495291190725839329
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -353,10 +353,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 6
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 6
 --- !u!65 &3697136360236155133
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -479,10 +479,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 7
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 7
 --- !u!65 &4722363676815505588
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -605,10 +605,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 8
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 8
 --- !u!65 &3825967860300538910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -731,10 +731,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 4
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 4
 --- !u!65 &934196918508407656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -897,10 +897,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 3
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 3
 --- !u!65 &5651446774086826328
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1023,10 +1023,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
+  Number: 5
   DefaultParent: {fileID: 0}
   MatReference: {fileID: 0}
   GlowMaterial: {fileID: 0}
-  Number: 5
 --- !u!65 &2029619037291290023
 BoxCollider:
   m_ObjectHideFlags: 0

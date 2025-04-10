@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public GameObject GetPickUpObject => getPickUpObject;
 
     public static GameManager Instance { get; private set; }
-    public GameObject PickupBeads;
+    // public GameObject PickupBeads;
 
     private void Awake()
     {
@@ -26,10 +26,8 @@ public class GameManager : MonoBehaviour
         if (getPickUpObject == null)
         {
             getPickUpObject = _picked;
-            Debug.Log("Picked up: " + _picked.name + " | getPickUpObject: " + getPickUpObject);
             return true;
         }
-        Debug.Log("Failed to pick up: getPickUpObject already set to " + getPickUpObject);
         return false;
     }
 
@@ -37,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         if (getPickUpObject != null)
         {
-            Debug.Log("Dropping pickup: " + getPickUpObject.name);
             getPickUpObject = null;
         }
     }

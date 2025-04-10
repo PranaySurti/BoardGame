@@ -7,27 +7,35 @@ using UnityEngine.InputSystem;
 
 public class PickUpBeads : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    private bool isDragging = false;
-    private float fixedY = 0.034f; // Match the Y-position of BlockBits
-    private Vector3 DefaultPosi;
     [SerializeField] private Camera mainCamera;
-    [SerializeField] Transform DefaultParent;
-    private Collider objectCollider;
+    private bool isDragging = false;
     private Vector3 offset;
-    [SerializeField] private Material MatReference, GlowMaterial;
-    private Rigidbody objectRigidbody;
     public int Number;
 
+    private float fixedY; 
+
+    private MeshRenderer meshRenderer;
+    private Collider objectCollider;
+    private Rigidbody objectRigidbody;
+    
+    [SerializeField] Transform DefaultParent;
+    [SerializeField] private Material MatReference, GlowMaterial;
     public bool IsSorted { get; internal set; }
     public GameObject PickupBeads { get; set; }
+
+    Vector3 BasePosition;
+    Quaternion BaseRotation;
+
 
     private void Awake()
     {
         mainCamera = Camera.main;
-        DefaultPosi = transform.position;
-        DefaultParent = transform.parent;
         objectCollider = GetComponent<Collider>();
-        objectRigidbody = GetComponent<Rigidbody>(); // Add this line
+        objectRigidbody = GetComponent<Rigidbody>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        StartCoroutine(SetKinematic()); 
+        BasePosition = transform.position;
+        BaseRotation = transform.rotation;
     }
 
     public void UpdateDrag(bool IsDrag)
@@ -35,20 +43,41 @@ public class PickUpBeads : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         isDragging = IsDrag;
     }
 
-    private void Start()
+        public void OnPointerUp(PointerEventData eventData)
     {
-        DefaultPosi = transform.position;
+        // if(transform.parent && GetComponentInParent<BlockGrid>()){
+        //     GetComponentInParent<BlockGrid>().OnPointerUp(eventData);
+        // }
+        // else if( transform.parent && GetComponentInParent<BeadsManager>() ){
+        //     GetComponentInParent<BeadsManager>().OnPointerUp(eventData);
+        // }else{
+        //     BeadsManager.Instance.ResetSkittle(gameObject);
+        // }
+
+        transform.position = BasePosition;
+        transform.rotation = BaseRotation;
+
+        
+
+        isDragging = false;
+        if (objectCollider != null) objectCollider.enabled = true;
+        if (objectRigidbody != null) objectRigidbody.isKinematic = false;
+        GameManager.Instance.DropPickup();
+        StartCoroutine(SetKinematic());
     }
 
+    /////////////////////////////////////////////////////////////////////////////
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("Pointer Down on: " + gameObject.name + " | EventData: " + eventData.ToString());
-        if (!GameManager.Instance.SetPickUp(gameObject)) return;
+        if ( !GameManager.Instance.SetPickUp(gameObject)) return; 
         isDragging = true;
         if (objectCollider != null) objectCollider.enabled = false;
-        Vector2 pointerScreenPos = Pointer.current.position.ReadValue();
-        Vector3 newWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(pointerScreenPos.x, pointerScreenPos.y, fixedY));
-        transform.position = newWorldPosition;
+        if (objectRigidbody != null) objectRigidbody.isKinematic = true;
+        fixedY = 2.5f; //transform.position.y + 8f; 
+        Vector2 pointerScreenPos = Pointer.current.position.ReadValue(); // Get pointer position
+        Vector3 newWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(pointerScreenPos.x, pointerScreenPos.y, fixedY ));
+        transform.position = newWorldPosition; // + (Vector3.up / 2);
+        // meshRenderer.material = GlowMaterial; 
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -59,24 +88,6 @@ public class PickUpBeads : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             Vector3 newWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(pointerScreenPos.x, pointerScreenPos.y, fixedY));
             transform.position = newWorldPosition;
         }
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        if (BeadsManager.Instance != null)
-        {
-            BeadsManager.Instance.OnPointerUp(eventData);
-        }
-        else
-        {
-            Debug.LogWarning("No valid placement handler found for " + (gameObject != null ? gameObject.name : "null"));
-        }
-
-        isDragging = false;
-        if (objectCollider != null) objectCollider.enabled = true;
-        if (objectRigidbody != null) objectRigidbody.isKinematic = false;
-        GameManager.Instance.DropPickup();
-        StartCoroutine(SetKinematic());
     }
 
     public IEnumerator SetKinematic()
